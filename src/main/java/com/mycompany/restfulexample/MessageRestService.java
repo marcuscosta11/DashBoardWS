@@ -230,31 +230,31 @@ public class MessageRestService {
     
     //Retorna uma lista com qtd de chip inativos por operadora
     @GET
-    @Path(value = "/getJsonQtdChipOperadora/")
-    public void getJsonQtdChipOperadora(@Suspended final AsyncResponse asyncResponse) {
+    @Path(value = "/getJsonQtdPcdsInativasbyOperadora/")   
+    public void getJsonQtdPcdsInativasbyOperadora(@Suspended final AsyncResponse asyncResponse) {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                asyncResponse.resume(doGetJsonQtdChipOperadora());
+                asyncResponse.resume(doGetJsonQtdPcdsInativasbyOperadora());
             }
         });
     }
-    private Response doGetJsonQtdChipOperadora() {
+    private Response doGetJsonQtdPcdsInativasbyOperadora() {
         String result = null;
         try {
-            FileReader fr = new FileReader("lista_operadoras_chips_inativos.json");
+            FileReader fr = new FileReader("lista_pcds_inativos_operadoras.json");
             BufferedReader br = new BufferedReader(fr);
             while(br.ready()){
                 result = br.readLine();
             }
         } catch (Exception e) {
-            System.out.println(">>>DashboardWS.MessageRestService.printMessage() - getJsonQtdChipOperadora: " + e.getMessage());
+            System.out.println(">>>DashboardWS.MessageRestService.printMessage() - getJsonQtdPcdsInativasbyOperadora: " + e.getMessage());
         }
         return Response.status(200).entity(result).build();
     }        
     
     
-    //Retorna lista com pcds inativas por operadora - Vivo
+    //// Retorna a lista de pcds inativas com operadora nas ultimas 24 horas
     @GET
     @Path(value = "/getJsonPcdsInativasOperadora/")
     public void getJsonPcdsInativasOperadora(@Suspended final AsyncResponse asyncResponse) {
@@ -280,23 +280,23 @@ public class MessageRestService {
     }
     
     
-//    teste covid-19
-    @GET/*apresenta os valores totais para cada tipo de rede de pcds*/
-    @Path("/getBaseCovid19/")
-    public Response getBaseCovid19 () {
-        String result = null;
-        try {
-            FileReader fr = new FileReader("base_corona_teste.json");
-            BufferedReader br = new BufferedReader(fr);                    
-            while(br.ready()){
-                result = br.readLine();
-            }                
-        } catch (Exception e) {
-            System.out.println(">>>DashboardWS.MessageRestService.printMessage() - getJsonTotalPcdsQuadroGeralRede: " + e.getMessage());
-        }                
-        return Response.status(200).entity(result).build();
-    } 
-//    teste
+////    teste covid-19
+//    @GET/*apresenta os valores totais para cada tipo de rede de pcds*/
+//    @Path("/getBaseCovid19/")
+//    public Response getBaseCovid19 () {
+//        String result = null;
+//        try {
+//            FileReader fr = new FileReader("base_corona_teste.json");
+//            BufferedReader br = new BufferedReader(fr);                    
+//            while(br.ready()){
+//                result = br.readLine();
+//            }                
+//        } catch (Exception e) {
+//            System.out.println(">>>DashboardWS.MessageRestService.printMessage() - getJsonTotalPcdsQuadroGeralRede: " + e.getMessage());
+//        }                
+//        return Response.status(200).entity(result).build();
+//    } 
+////    teste
     
 }
 
